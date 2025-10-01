@@ -1,35 +1,27 @@
 let board
 let win = false
 let moves = 0
+let dark = false
 
 let squareEls = document.querySelectorAll(".sqr")
 const resetBtn = document.getElementById("reset")
+const homeBtn = document.getElementById("home")
+const modeBtn = document.getElementById("mode")
 let movesMsg = document.getElementById("moves")
 let timeMsg = document.getElementById("time")
 
-let arrBoard = [
-    true, true, true, true, true,
-    true, true, true, true, true,
-    true, true, true, true, true,
-    true, true, true, true, true,
-    true, true, true, true, true]
+let arrBoard = [ false, false, false, false, false,
+                 false, false, false, false, false, 
+                 false, false, false, false, false, 
+                 false, false, false, false, false, 
+                 false, false, false, false, false]
 
-const updateBoard = () => {
-    for (let i = 0; i < arrBoard.length; i++){
-        if (arrBoard[i] === true){
-            squareEls[i].style.backgroundColor = "#FFEB00"
-        }
-        else if (arrBoard[i] === false){
-            squareEls[i].style.backgroundColor = "#000957"
-        }
-    }
-}   
 
 const updateMessage = () => {
     if (win === true)
         alert("You win!")
     else
-        movesMsg.innerText=(`Moves: `, moves)
+        movesMsg.innerText=(`Moves: `+ moves)
 }
 
 
@@ -45,6 +37,59 @@ const setupEventListener = () => {
     }
 }
 
+const setupResetBtn = () => {
+    resetBtn.addEventListener("click", function(){
+        init()
+    })
+}
+
+const setupHometBtn = () => {
+    homeBtn.addEventListener("click", function(){
+        window.location.href = "home.html"
+    })
+}
+
+const setupModeBtn = () => {
+    modeBtn.addEventListener("click", function(){
+        dark =! dark
+        checkForMode()
+    })
+}
+
+const checkForMode = () => {
+    if (dark === true){
+        darkMode()
+    }
+    else if (dark === false)
+        lightMode()
+}
+
+const darkMode = () => {
+    for (let i = 0; i < arrBoard.length; i++){
+        if (arrBoard[i] === true){
+            squareEls[i].style.backgroundColor = "#D3DAD9"
+        }
+        else if (arrBoard[i] === false){
+            squareEls[i].style.backgroundColor = "#44444E"
+        }
+    }
+    document.body.classList.add('dark')
+    document.body.classList.remove('light')
+    modeBtn.innerText = ("Light Mode")
+}
+const lightMode = () => {
+    for (let i = 0; i < arrBoard.length; i++){
+        if (arrBoard[i] === true){
+            squareEls[i].style.backgroundColor = "#F8FAFC"
+        }
+        else if (arrBoard[i] === false){
+            squareEls[i].style.backgroundColor = "#9AA6B2"
+        }
+    }
+    document.body.classList.add('light')
+    document.body.classList.remove('dark')
+    modeBtn.innerText = ("Dark Mode")
+}
 
 const placePiece = (index) => {
     if (arrBoard[index] === true){
@@ -60,8 +105,16 @@ const placePiece = (index) => {
         render()
         placeNeighbors(index)}
 
-    console.log(arrBoard)
-    console.log(moves)
+}
+
+const checkForWin = () => {
+    for (let i = 0; i < arrBoard.length; i++){
+        if (arrBoard[i] === true){
+            win = false
+            return}
+        else
+            win = true
+    }
 }
 
 const placeNeighbors = (squareIndex) => {
@@ -202,8 +255,9 @@ const placeNeighbors = (squareIndex) => {
 }
 
 const init = () => {
-    for (let i = 0; i < arrBoard.length; i++){
-        arrBoard[i] = Math.random() < 0.5 ? true : false;
+    for (let i = 0; i < 10; i++){
+        let random = Math.floor(Math.random() * 25)
+        placePiece(random)
     }
     win = false
     moves = 0
@@ -211,12 +265,15 @@ const init = () => {
 }
 
 const render = () => {
-    updateBoard()
+    checkForWin()
+    checkForMode()
     updateMessage()
 }
 
 
 
 init()
-console.log(arrBoard)
 setupEventListener()
+setupResetBtn()
+setupHometBtn()
+setupModeBtn()
