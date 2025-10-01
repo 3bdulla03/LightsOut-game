@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="howToPlay.css">
+    <script defer src="howToPlay.js"></script>
+    <title>How to play</title>
+</head>
+<body>
+    <div class="parent">
+        <div class="div1">
+            <h1>How to solve LightsOut puzzle</h1>
+        </div>
+        <div class="div2">
+            <h2>Chase the lights</h2>
+            <p>
+                The easiest way to solve LightsOut puzzles is to use a method called Chase The Lights. 
+                Starting with the second row, click on every cell that has a light on in the row above it. 
+                This will turn off all the lights in that row. 
+                Continue with each successive row until the only remaining lights are in the final row.
+            </p>
+        </div>
+        <div class="div3">
+            <h2>Pattern Lookup</h2>
+            <p>
+                Now that you only have lights on in the final row, 
+                use the lookup table below and find the pattern of lights. 
+                This will tell you which lights to click in the top row. 
+                When you chase the lights this time, the bottom row will end up dark, 
+                just like the rest of the puzzle.
+            </p>
+        </div>
+        <div class="div4">
+            <ul>
+                <p>Bottom Row Lights</p>
+                <li>..***</li>
+                <li>.*.*.</li>
+                <li>.**.*</li>
+                <li>*...*</li>
+                <li>*.**.</li>
+                <li>**.**</li>
+                <li>***..</li>
+            </ul>
+        </div>
+        <div class="div5">
+            <p>Top Row Clicks</p>
+            <ul>
+                <li>...+.</li>
+                <li>.+..+</li>
+                <li>+....</li>
+                <li>...++</li>
+                <li>....+</li>
+                <li>..+..</li>
+                <li>.+...</li>
+            </ul>
+        </div>
+        <div class="div6">
+            <button id="startBtn" class="btn">Play</button>
+        </div>
+        <div class="div7">
+            <button id="homeBtn" class="btn">Home</button>
+        </div>
+    </div>
+
+</body>
+</html>
