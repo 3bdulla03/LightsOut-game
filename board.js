@@ -3,20 +3,21 @@ let win = false
 let moves = 0
 let dark = false
 
+// importing elements from html
 let squareEls = document.querySelectorAll(".sqr")
 const resetBtn = document.getElementById("reset")
 const homeBtn = document.getElementById("home")
 const modeBtn = document.getElementById("mode")
 let movesMsg = document.getElementById("moves")
-let timeMsg = document.getElementById("time")
 
+// initial board
 let arrBoard = [ false, false, false, false, false,
                  false, false, false, false, false, 
                  false, false, false, false, false, 
                  false, false, false, false, false, 
                  false, false, false, false, false]
 
-
+// function to check if win is true to alert player, otherwise shows the increased moves
 const updateMessage = () => {
     if (win === true)
         alert("You win!")
@@ -24,7 +25,7 @@ const updateMessage = () => {
         movesMsg.innerText=(`Moves: `+ moves)
 }
 
-
+// function to check for clicks on which box and update its status
 const setupEventListener = () => {
     for (let i = 0; i < squareEls.length; i++){
         if (win === true)
@@ -37,18 +38,21 @@ const setupEventListener = () => {
     }
 }
 
+// function for reseting the board button
 const setupResetBtn = () => {
     resetBtn.addEventListener("click", function(){
         init()
     })
 }
 
+// function for the button that takes the user to the home page
 const setupHometBtn = () => {
     homeBtn.addEventListener("click", function(){
         window.location.href = "home.html"
     })
 }
 
+// function for the button to change between dark and light mode
 const setupModeBtn = () => {
     modeBtn.addEventListener("click", function(){
         dark =! dark
@@ -56,6 +60,7 @@ const setupModeBtn = () => {
     })
 }
 
+// function to change dark/light mode
 const checkForMode = () => {
     if (dark === true){
         darkMode()
@@ -64,6 +69,7 @@ const checkForMode = () => {
         lightMode()
 }
 
+// dark mode function
 const darkMode = () => {
     for (let i = 0; i < arrBoard.length; i++){
         if (arrBoard[i] === true){
@@ -77,6 +83,8 @@ const darkMode = () => {
     document.body.classList.remove('light')
     modeBtn.innerText = ("Light Mode")
 }
+
+// light mode function
 const lightMode = () => {
     for (let i = 0; i < arrBoard.length; i++){
         if (arrBoard[i] === true){
@@ -90,6 +98,7 @@ const lightMode = () => {
     document.body.classList.remove('dark')
     modeBtn.innerText = ("Dark Mode")
 }
+
 
 const placePiece = (index) => {
     if (arrBoard[index] === true){
@@ -269,7 +278,6 @@ const render = () => {
     checkForMode()
     updateMessage()
 }
-
 
 
 init()
