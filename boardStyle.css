@@ -39,7 +39,7 @@ grid-row-gap: 0px;
     align-items: center; }
 .div2 { grid-area: 2 / 3 / 3 / 4; }
 .div3 { grid-area: 2 / 4 / 3 / 5; }
-.div4, .div5, .div6 {
+.div4, .div5, .div6, .div7 {
     margin: 5px;
 }
 
