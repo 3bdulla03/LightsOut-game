@@ -2,12 +2,14 @@ let board
 let win = false
 let moves = 0
 let dark = false
+let hard = false
 
 // importing elements from html
 let squareEls = document.querySelectorAll(".sqr")
 const resetBtn = document.getElementById("reset")
 const homeBtn = document.getElementById("home")
 const modeBtn = document.getElementById("mode")
+const hardBtn = document.getElementById("hard")
 let movesMsg = document.getElementById("moves")
 
 // initial board
@@ -48,7 +50,7 @@ const setupResetBtn = () => {
 // function for the button that takes the user to the home page
 const setupHometBtn = () => {
     homeBtn.addEventListener("click", function(){
-        window.location.href = "home.html"
+        window.location.href = "index.html"
     })
 }
 
@@ -60,6 +62,43 @@ const setupModeBtn = () => {
     })
 }
 
+// function for the button to change between easy and hard mode
+const setupHardBtn = () => {
+    hardBtn.addEventListener("click", function(){
+        hard =! hard
+        checkForHard()
+    })
+}
+
+// function for changing the hard mode after button clicked
+const checkForHard = () => {
+    if (hard === true)
+        hardMode()
+    else if (hard === false)
+        easyMode()
+}
+
+// changing the mode to hard
+const hardMode = () => {
+    alert("You have 10 moves only to solve the puzzle!")
+    hardBtn.innerText = ("Easy mode")
+    limitMoves()
+}
+
+// changing the mode to easy
+const easyMode = () => {
+    alert("Don't be lazy ;)")
+    hardBtn.innerText = ("Expert mode")
+    
+}
+
+// limiting moves for hard mode
+const limitMoves = () => {
+    if (moves === 11){
+        alert("You lose :(")
+        init()
+    }
+}
 // function to change dark/light mode
 const checkForMode = () => {
     if (dark === true){
@@ -99,11 +138,15 @@ const lightMode = () => {
     modeBtn.innerText = ("Dark Mode")
 }
 
-
+// placing pieces function
 const placePiece = (index) => {
     if (arrBoard[index] === true){
         arrBoard[index] = false
         moves++
+
+        if (hard === true)
+            limitMoves()
+
         render()
         placeNeighbors(index)}
 
@@ -111,11 +154,16 @@ const placePiece = (index) => {
     else if (arrBoard[index] === false){
         arrBoard[index] = true
         moves++
+
+        if (hard === true)
+            limitMoves()
+
         render()
         placeNeighbors(index)}
 
 }
 
+// a function that checks if all cells are empty sets win to true
 const checkForWin = () => {
     for (let i = 0; i < arrBoard.length; i++){
         if (arrBoard[i] === true){
@@ -126,6 +174,7 @@ const checkForWin = () => {
     }
 }
 
+// a function to change neighbors status
 const placeNeighbors = (squareIndex) => {
     index = squareIndex
 
@@ -263,6 +312,7 @@ const placeNeighbors = (squareIndex) => {
     render()
 }
 
+// initial set for the board
 const init = () => {
     for (let i = 0; i < 10; i++){
         let random = Math.floor(Math.random() * 25)
@@ -285,3 +335,4 @@ setupEventListener()
 setupResetBtn()
 setupHometBtn()
 setupModeBtn()
+setupHardBtn()
