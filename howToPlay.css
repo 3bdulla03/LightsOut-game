@@ -48,7 +48,9 @@ grid-row-gap: 0px;
 .div2 { grid-area: 2 / 3 / 3 / 5; }
 .div3 { grid-area: 3 / 3 / 4 / 5; }
 .div4 { grid-area: 4 / 3 / 5 / 4; }
-.div5 { grid-area: 4 / 4 / 5 / 5; }
+.div5 { 
+    grid-area: 4 / 4 / 5 / 5;
+  }
 .div6 { 
     grid-area: 6 / 3 / 7 / 4;
     display: flex;
